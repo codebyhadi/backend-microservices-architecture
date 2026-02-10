@@ -1,6 +1,10 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
- */
+const Fastify = require("fastify");
+const provider = require("./provider");
 
+const app = Fastify();
 
+app.post("/charge", async (req) => {
+  return provider.charge(req.body.amount);
+});
+
+app.listen({ port: 4003 });

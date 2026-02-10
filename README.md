@@ -1,0 +1,179 @@
+# Backend Microservices Architecture (Reference Implementation)
+
+A **production-style backend microservices system** designed to demonstrate scalable architecture decisions, clean service boundaries, and real-world backend concerns.
+
+This repo is **interview-ready** and intentionally opinionated.
+
+---
+
+## 🧱 Services
+
+| Service | Responsibility | Tech |
+|------|---------------|------|
+| API Gateway | Routing, auth verification, rate limits | Node.js (Fastify) |
+| Auth Service | JWT / OAuth, token issuing | Node.js + JWT |
+| User Service | User profiles, roles | Node.js + PostgreSQL |
+| Payment Service | Payment abstraction (Stripe mock) | Node.js |
+| Redis | Cache / session store | Redis |
+| Logging | Centralized logs | Pino + stdout |
+
+---
+
+## 🏗 Architecture Decisions
+
+### Service Isolation
+- Each service has **its own DB schema**
+- No shared databases
+- Communication via HTTP only
+
+### API Gateway
+- Single public entry point
+- JWT verification at edge
+- Internal services are private
+
+### Redis Caching
+- User session cache
+- Token blacklist
+- Payment intent cache
+
+### Stateless Services
+- No in-memory state
+- Horizontal scaling ready
+
+---
+
+## 📈 Scaling Strategy
+
+### Horizontal Scaling
+- Stateless services
+- Docker-ready
+- Scale per service
+
+### Centralized Logging
+- Structured logs (JSON)
+- Correlation IDs
+- Ready for ELK / Loki
+
+### Graceful Degradation
+- Timeouts + retries
+- Circuit breaker pattern (simplified)
+- Fallback responses
+
+---
+
+## 📁 Folder Structure
+
+```
+backend-microservices-architecture/
+├── docker-compose.yml
+├── api-gateway/
+│   ├── src/
+│   │   ├── index.js
+│   │   ├── routes.js
+│   │   └── auth-middleware.js
+│   └── package.json
+├── services/
+│   ├── auth-service/
+│   │   ├── src/index.js
+│   │   ├── src/jwt.js
+│   │   └── package.json
+│   ├── user-service/
+│   │   ├── src/index.js
+│   │   ├── src/db.js
+│   │   ├── src/routes.js
+│   │   └── package.json
+│   └── payment-service/
+│       ├── src/index.js
+│       ├── src/provider.js
+│       └── package.json
+└── shared/
+    ├── logger.js
+    └── http-client.js
+```
+
+---
+
+## 🚀 Running the Project
+
+### 1️⃣ Prerequisites
+- Node.js 18+
+- Docker & Docker Compose
+
+### 2️⃣ Clone Repo
+```bash
+git clone https://github.com/yourname/backend-microservices-architecture.git
+cd backend-microservices-architecture
+```
+
+### 3️⃣ Start Infrastructure
+```bash
+docker-compose up -d redis postgres
+```
+
+### 4️⃣ Install Dependencies
+```bash
+cd api-gateway && npm install
+cd services/auth-service && npm install
+cd services/user-service && npm install
+cd services/payment-service && npm install
+```
+
+### 5️⃣ Run Services
+```bash
+npm run dev
+```
+(Repeat per service or use tmux / pm2)
+
+---
+
+## 🔐 Auth Flow
+1. Client hits `/auth/login`
+2. Auth service issues JWT
+3. API Gateway validates JWT
+4. Requests forwarded internally
+
+---
+
+## 💳 Payment Flow
+1. Client → API Gateway
+2. Payment Service abstracts provider
+3. Provider can be swapped (Stripe / PayPal)
+
+---
+
+## 🧪 Example Requests
+
+```bash
+curl -X POST http://localhost:3000/auth/login \
+  -d '{"email":"test@test.com","password":"123"}'
+```
+
+---
+
+## 🎤 Interview Talking Points
+
+- Why API Gateway over direct exposure
+- Stateless design for Kubernetes
+- Redis usage patterns
+- Service-level scalability
+- Failure isolation
+
+---
+
+## 🔮 Next Improvements
+- gRPC internal communication
+- OpenTelemetry tracing
+- Rate limiting
+- Kubernetes manifests
+
+---
+
+## 🧠 Why This Repo Matters
+
+This project demonstrates:
+- Senior backend architecture thinking
+- Clean separation of concerns
+- Real-world scalability decisions
+
+Perfect for **backend, platform, blockchain infra roles**.
+

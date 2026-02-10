@@ -1,6 +1,8 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
- */
+const pino = require("pino");
+
+module.exports = pino({
+  level: process.env.LOG_LEVEL || "info",
+  base: { service: process.env.SERVICE_NAME }
+});
 
 

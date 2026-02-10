@@ -1,6 +1,9 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
- */
+const { Pool } = require("pg");
 
-
+module.exports = new Pool({
+  user: "app",
+  password: "app",
+  database: "users",
+  host: "localhost",
+  port: 5432
+});

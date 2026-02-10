@@ -1,6 +1,10 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
- */
+const Fastify = require("fastify");
+const routes = require("./routes");
 
+const app = Fastify({ logger: true });
 
+app.register(routes);
+
+app.listen({ port: 3000 }, () => {
+  console.log("API Gateway running on :3000");
+});
