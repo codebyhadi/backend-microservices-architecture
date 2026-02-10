@@ -1,10 +1,4 @@
-# Backend Microservices Architecture (Reference Implementation)
-
-A **production-style backend microservices system** designed to demonstrate scalable architecture decisions, clean service boundaries, and real-world backend concerns.
-
-This repo is **interview-ready** and intentionally opinionated.
-
----
+# Backend Microservices Architecture
 
 ## 🧱 Services
 
@@ -16,48 +10,6 @@ This repo is **interview-ready** and intentionally opinionated.
 | Payment Service | Payment abstraction (Stripe mock) | Node.js |
 | Redis | Cache / session store | Redis |
 | Logging | Centralized logs | Pino + stdout |
-
----
-
-## 🏗 Architecture Decisions
-
-### Service Isolation
-- Each service has **its own DB schema**
-- No shared databases
-- Communication via HTTP only
-
-### API Gateway
-- Single public entry point
-- JWT verification at edge
-- Internal services are private
-
-### Redis Caching
-- User session cache
-- Token blacklist
-- Payment intent cache
-
-### Stateless Services
-- No in-memory state
-- Horizontal scaling ready
-
----
-
-## 📈 Scaling Strategy
-
-### Horizontal Scaling
-- Stateless services
-- Docker-ready
-- Scale per service
-
-### Centralized Logging
-- Structured logs (JSON)
-- Correlation IDs
-- Ready for ELK / Loki
-
-### Graceful Degradation
-- Timeouts + retries
-- Circuit breaker pattern (simplified)
-- Fallback responses
 
 ---
 
@@ -91,7 +43,7 @@ backend-microservices-architecture/
     └── http-client.js
 ```
 
----
+
 
 ## 🚀 Running the Project
 
@@ -101,7 +53,7 @@ backend-microservices-architecture/
 
 ### 2️⃣ Clone Repo
 ```bash
-git clone https://github.com/yourname/backend-microservices-architecture.git
+git clone https://github.com/codebyhadi/backend-microservices-architecture.git
 cd backend-microservices-architecture
 ```
 
@@ -132,12 +84,6 @@ npm run dev
 3. API Gateway validates JWT
 4. Requests forwarded internally
 
----
-
-## 💳 Payment Flow
-1. Client → API Gateway
-2. Payment Service abstracts provider
-3. Provider can be swapped (Stripe / PayPal)
 
 ---
 
@@ -148,32 +94,4 @@ curl -X POST http://localhost:3000/auth/login \
   -d '{"email":"test@test.com","password":"123"}'
 ```
 
----
-
-## 🎤 Interview Talking Points
-
-- Why API Gateway over direct exposure
-- Stateless design for Kubernetes
-- Redis usage patterns
-- Service-level scalability
-- Failure isolation
-
----
-
-## 🔮 Next Improvements
-- gRPC internal communication
-- OpenTelemetry tracing
-- Rate limiting
-- Kubernetes manifests
-
----
-
-## 🧠 Why This Repo Matters
-
-This project demonstrates:
-- Senior backend architecture thinking
-- Clean separation of concerns
-- Real-world scalability decisions
-
-Perfect for **backend, platform, blockchain infra roles**.
 
