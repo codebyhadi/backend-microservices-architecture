@@ -9,7 +9,6 @@
 | User Service | User profiles, roles | Node.js + PostgreSQL |
 | Payment Service | Payment abstraction (Stripe mock) | Node.js |
 | Redis | Cache / session store | Redis |
-| Logging | Centralized logs | Pino + stdout |
 
 ---
 
